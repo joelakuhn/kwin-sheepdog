@@ -1,0 +1,21 @@
+{
+    "KPlugin": {
+        "Name": "Sheepdog",
+        "Description": "Adds bindings to save and restore window layout.",
+        "Icon": "preferences-system-windows",
+        
+        "Authors": [
+            {
+                "Email": "joelakuhn@gmail.com",
+                "Name": "Joel Kuhn"
+            }
+        ],
+        "Id": "sheepdog",
+        "Version": "1.0",
+        "License": "GPLv3",
+        "Website": "https://github.com/joelakuhn/kwin-sheepdog"
+    },
+    "X-Plasma-API": "javascript",
+    "X-Plasma-MainScript": "code/main.js",
+    "KPackageStructure": "KWin/Script"
+}
