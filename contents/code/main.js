@@ -41,7 +41,7 @@ class Keeper {
             let minimized = win.minimized;
             let active = win.active;
 
-            window_properties[win.internalId.toString()] = {
+            window_properties[win.internalId] = {
                 frame_geometry,
                 maximize_mode,
                 minimized,
@@ -72,9 +72,9 @@ class Keeper {
         }
 
         for (let win of normal_windows) {
-            if (win.internalId.toString() in window_properties) {
-                let props = window_properties[win.internalId.toString()];
-                
+            if (win.internalId in window_properties) {
+                let props = window_properties[win.internalId];
+
                 win.frameGeometry = props.frame_geometry;
                 win.minimized = props.minimized;
                 win.setMaximize(
