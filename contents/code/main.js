@@ -18,10 +18,12 @@ class Keeper {
             null,
             null,
             null,
+            null,
         ];
     }
 
-    save_layout(index) {
+    get_current_layout() {
+
         let normal_windows = workspace.windowList()
             .filter((win) => win.windowType === WINDOW_TYPE_NORMAL);
 
@@ -49,10 +51,20 @@ class Keeper {
             }
         }
 
-        this.registers[index] = {
+        return {
             stacking_order,
             window_properties,
         };
+    }
+
+    save_layout(index) {
+        this.registers[index] = this.get_current_layout();
+    }
+
+    load_layout_and_save_previous(index) {
+        let current_layout = this.get_current_layout();
+        this.load_layout(index);
+        this.registers[0] = current_layout;
     }
 
     load_layout(index) {
@@ -95,13 +107,15 @@ class Keeper {
 
 let keeper = new Keeper();
 
-keeper.generate_shortcut('Save Layout A', () => keeper.save_layout(0));
-keeper.generate_shortcut('Save Layout B', () => keeper.save_layout(1));
-keeper.generate_shortcut('Save Layout C', () => keeper.save_layout(2));
-keeper.generate_shortcut('Save Layout D', () => keeper.save_layout(3));
+keeper.generate_shortcut('Save Layout A', () => keeper.save_layout(1));
+keeper.generate_shortcut('Save Layout B', () => keeper.save_layout(2));
+keeper.generate_shortcut('Save Layout C', () => keeper.save_layout(3));
+keeper.generate_shortcut('Save Layout D', () => keeper.save_layout(4));
 
-keeper.generate_shortcut('Load Layout A', () => keeper.load_layout(0));
-keeper.generate_shortcut('Load Layout B', () => keeper.load_layout(1));
-keeper.generate_shortcut('Load Layout C', () => keeper.load_layout(2));
-keeper.generate_shortcut('Load Layout D', () => keeper.load_layout(3));
+keeper.generate_shortcut('Load Layout A', () => keeper.load_layout_and_save_previous(1));
+keeper.generate_shortcut('Load Layout B', () => keeper.load_layout_and_save_previous(2));
+keeper.generate_shortcut('Load Layout C', () => keeper.load_layout_and_save_previous(3));
+keeper.generate_shortcut('Load Layout D', () => keeper.load_layout_and_save_previous(4));
+
+keeper.generate_shortcut('Load Previous', () => keeper.load_layout_and_save_previous(0));
 
